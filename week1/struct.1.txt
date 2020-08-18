@@ -1,0 +1,41 @@
+
+1.C Program to Add Two Complex Numbers by Passing Structure to a Function
+
+#include<stdio.h>
+struct complex
+{
+	float real,imag;
+};
+struct complex add(struct complex C1,struct complex C2)
+{
+	struct complex C3;
+	C3.real = C1.real + C2.real;
+	C3.imag = C1.imag + C2.imag;
+	return C3;
+}
+struct complex sub(struct complex C1,struct complex C2)
+{
+	struct complex C3;
+	C3.real = C1.real - C2.real;
+	C3.imag = C1.imag - C2.imag;
+	return C3;
+}
+struct complex mul(struct complex C1,struct complex C2)
+{
+	struct complex C3;
+	C3.real = (C1.real * C2.real)-(C1.imag * C2.imag);
+	C3.imag = (C1.real * C2.imag)+(C2.real * C1.imag);
+	return C3;
+}
+int main()
+{
+	struct complex C1,C2,Add,Sub,Mul;
+	scanf("%f%f",&C1.real,&C1.imag);
+	scanf("%f%f",&C2.real,&C2.imag);
+	Add = add(C1,C2);
+	Sub = sub(C1,C2);
+	Mul = mul(C1,C2);
+	printf("%f + %fi\n",Add.real,Add.imag);
+	printf("%f + %fi\n",Sub.real,Sub.imag);
+	printf("%f + %fi\n",Mul.real,Mul.imag);
+}
