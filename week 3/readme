@@ -1,1 +1,114 @@
+Write a program that implements the following sorting methods to sort a given list of
+integers in ascending order
+i) Bubble sort  
+     #include<stdio.h>
+void bubble_sort(int a[100], int n)
+{
+	int i,t,j;
+	for(i=0;i<n-1;i++)
+	{
+		for(j=0;j<n-i-1;j++)
+		{
+			if(a[j]>a[j+1])
+			{
+				t=a[j];
+				a[j]=a[j+1];
+				a[j+1]=t;
+			}
+		}
+	}
+	for(i=0;i<n;i++)
+	{
+	    printf("%d\t",a[i]);
+    }
+}
+int main()
+{
+	int n,i;
+	scanf("%d",&n);
+	bubble_sort(a,n);
+	int a[n];
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("elements after sorting\n");
+}
+ 
+      
+ii) Selection sort
+
+ #include<stdio.h>
+void selection_sort(int a[100], int n)
+{
+	int t,i,j,min;
+	for(i=0;i<n-1;i++)
+    {
+    	min=i;
+		for(j=i+1;j<n;j++)
+		{
+			if(a[j]<a[min])
+			min=j;
+		}
+		t=a[i];
+		a[i]=a[min];
+		a[min]=t;
+	}
+
+	for(i=0;i<n;i++)
+	{
+		printf("%d\t",a[i]);
+	}
+}
+int main()
+{
+	int n,i;
+	scanf("%d",&n);
+	int a[n];
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("elements after sorting\n");
+	selection_sort(a,n);
+}
+
+
+
+iii) Insertion sort
+
+#include<stdio.h>
+void insertion_sort(int a[100], int n)
+{
+	int i,j,index;
+	for(i=1;i<n;i++)
+	{
+		index=a[i];
+		j=i;
+		while((j>0) && (a[j-1]>index))
+		{
+			a[j]=a[j-1];
+			j=j-1;
+		}
+		a[j]=index;
+	}
+	for(i=0;i<n;i++)
+	{
+		printf("%d\t",a[i]);
+	}
+}
+int main()
+{
+	int i,n;
+	scanf("%d",&n);
+	int a[n];
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("elements after sorting\n");
+	insertion_sort(a,n);
+}
+
+
 
