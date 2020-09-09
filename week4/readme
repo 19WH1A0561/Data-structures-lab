@@ -1,1 +1,290 @@
-
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node*link;
+};
+struct node*head=NULL,*tail=NULL,*cur,*next,*prev,*t1,*t2;
+void create()
+{
+    int i,n;
+	printf("enter the number of nodes\n");
+		scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		cur=(struct node*)malloc(sizeof(struct node));
+		printf("enter current node data\n");
+		scanf("%d",&cur->data);
+		cur->link=NULL;
+		if(head==NULL)
+			head=tail=cur;
+		else
+		{
+			tail->next=cur;
+			tail=cur;
+		}
+	}
+}
+void insert_at_begin()
+{
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("enter the data\n");
+	scanf("%d",&cur->data);
+	cur->next=head;
+	head=cur;
+}
+void insert_at_end()
+{
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("enter the data\n");
+	scanf("%d",&cur->data);
+	cur->next=NULL;
+	tail->next=cur;
+	tail=cur;
+}
+void insert_at_given_pos()
+{
+	int pos,c;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("enter the data\n");
+	scanf("%d",&cur->data);
+	scanf("%d",&pos);
+	c=1;
+	next=head;
+	while(c<pos)
+	{
+		t2=t1;
+		t1=t1->next;
+		c++;
+	}
+	cur->prev=t2;
+	t2->next=cur;
+	t1->prev=cur;
+	cur->next=t2;
+}
+void insert_before_given_node()
+{
+	int value;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("enter the data\n");
+	scanf("%d",&cur->data);
+	scanf("%d",&value);
+	next=head;
+	while(t1->data!=value && t1!=NULL)
+	{
+		t2=t1;
+		t1=t1->next;
+	}
+	cur->prev=t2;
+	t2->next=cur;
+	t1->prev=cur;
+	cur->next=t2;
+}
+void insert_after_given_node()
+{
+	int value;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("enter the data\n");
+	scanf("%d",&cur->data);
+	scanf("%d",&value);
+	next=head;
+	while(t1->data!=value && t1!=NULL)
+	{
+		next=next->link;
+	}
+	cur->link=next->link;
+	next->link=cur;
+}
+void deletion_at_begin()
+{
+	printf("enter the data\n");
+	cur=head;
+	head=cur->link;
+	cur->link=NULL;
+	printf("deleted elementis %d\n",cur->data);
+	free(cur);
+}
+void deletion_at_end()
+{
+	printf("enter the data\n");
+	cur=head;
+	while(cur->link!=tail)
+	{
+		cur=cur->link;
+	}
+	cur->link=NULL;
+	next=tail;
+	printf("deleted data is %d\n",next->data);
+	free(next);
+	tail=cur;
+}
+void deletion_at_given_pos()
+{
+	int c,pos;
+	next=head;
+	c=1;
+	printf("enter the data\n");
+	scanf("%d",&pos);
+	while(c<pos)
+	{
+		prev=next;
+		next=next->link;
+		c++;
+	}
+	prev->link=next->link;
+	printf("deleted element is %d\n",next->data);
+	next->link=NULL;
+	free(next);
+}
+void deletion_after_given_node()
+{
+	int value;
+	printf("enter the data\n");
+	scanf("%d",&value);
+	next=head;
+	while(next->data!=value)
+	{
+		prev=next;
+		next=next->link;
+	}
+	prev=next->link;
+	next->link=prev->link;
+	printf("%d\n",&prev->data);
+	prev->link=NULL;
+	free(prev);
+}
+void deletion_before_given_node()
+{
+	int value;
+	printf("enter the data\n");
+	scanf("%d",&value);
+	next=head;
+	while(next->link->data!=value)
+	{
+		prev=next;
+		next=next->link;
+	}
+	prev->link=next->link;
+	next->link=NULL;
+	printf("%d\n",&next->data);
+	free(next);
+}
+void display()
+{
+	if(head==NULL)
+		printf("list is empty\n");
+	else
+	{
+		next=head;
+		while(next!=NULL)
+		{
+			printf("%d->",next->data);
+			next=next->link;
+		}
+	}
+}
+void display_in_reverse(struct node*head)
+{
+	if(head!=NULL)
+	{
+		display_in_reverse(head->link);
+		printf("%d->",head->data);
+	}
+}
+void search()
+{
+	int value,flag=0,c=1;
+	printf("enter the value to search\n");
+	scanf("%d",&value);
+	next=head;
+	while(next!=NULL)
+	{
+		if(next->data==value)
+		{
+			flag=1;
+			break;
+		}
+		next=next->link;
+		c++;
+	}
+	if(flag==1)
+		printf("element present at %d position\n",c);
+	else
+		printf("element not found\n");
+}
+void sorting()
+{
+	int i,t;
+	struct node*p1,*p2;
+	p1=head;
+	int c=0;
+	while(p1!=NULL)
+	{
+		c++;
+		p1=p1->link;
+	}
+	for(i=0;i<c;i++)
+	{
+		p2=head;
+		while(p2->link!=NULL)
+		{
+		
+			if(p2->data>p2->link->data)
+			{	
+				t=p2->data;
+				p2->data=p2->link->data;
+				p2->link->data=t;
+			}	
+			p2=p2->link;
+    	}
+	}
+}
+int main()
+{
+	int ch;
+	while(1)
+	{
+		printf("program for single linked list\n");
+		printf("1-create\n2-insert_at_begin\n3-insert_at_end\n4-insert_at_given_pos\n5-insert_before_given_node\n6-insert_after_given_node\n");
+		printf("7-deletion_at_begin\n8-deletion_at_end\n9-deletion_at_given_pos\n10-deletion_before_given_node\n11-deletion_after_given_node\n");
+		printf("12-display\n13-display_in_reverse\n14-search\n15-sorting\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: create();
+				break;
+			case 2: insert_at_begin();
+				break;
+			case 3: insert_at_end();
+				break;
+			case 4: insert_at_given_pos();
+				break;
+			case 5: insert_before_given_node();
+				break;
+			case 6: insert_after_given_node();
+				break;
+			case 7: deletion_at_begin();
+				break;
+			case 8: deletion_at_end();
+				break;
+			case 9: deletion_at_given_pos();
+				break;
+			case 10: deletion_before_given_node();
+				break;
+			case 11: deletion_after_given_node();
+				break;
+			case 12: display();
+				break;
+			case 13: display_in_reverse(head);
+				break;
+			case 14: search();
+				break;
+			case 15: sorting();
+				break;
+			case 16: exit(0);
+		}
+		}
+}
+	
